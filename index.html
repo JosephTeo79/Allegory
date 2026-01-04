@@ -21,6 +21,20 @@ pdfjsLib.GlobalWorkerOptions.workerSrc =
 
 <!-- Lunr.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js"></script>
+  <script src="https://cdn.botpress.cloud/webchat/v3.5/inject.js"></script>
+<style>
+  #webchat .bpWebchat {
+    position: unset;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  #webchat .bpFab {
+    display: none;
+  }
+</style>
 </head>
 <body>
 
@@ -142,6 +156,48 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.appendChild(tidioScript);
   })();
 */
+
+<!-- Put this on your page BEFORE the script below -->
+<div id="webchat" style="width: 500px; height: 500px;"></div>
+
+<!-- In your <body> tag -->
+<script>
+  window.botpress.on("webchat:ready", () => {
+    window.botpress.open();
+  });
+  window.botpress.init({
+  "botId": "a513dc7b-a61b-4a0e-b0c2-79292f0f64b8",
+  "configuration": {
+    "version": "v2",
+    "botName": "Integrated Retail Support Agent",
+    "botAvatar": "https://files.bpcontent.cloud/2025/12/22/00/20251222002253-Y8F2R9P2.png",
+    "botDescription": "",
+    "website": {},
+    "email": {},
+    "phone": {},
+    "termsOfService": {},
+    "privacyPolicy": {},
+    "color": "#FF2B4A",
+    "variant": "solid",
+    "headerVariant": "glass",
+    "themeMode": "light",
+    "fontFamily": "inter",
+    "radius": 2,
+    "feedbackEnabled": false,
+    "footer": "[⚡ by Botpress](https://botpress.com/?from=webchat)",
+    "soundEnabled": false,
+    "proactiveMessageEnabled": false,
+    "proactiveBubbleMessage": "Hi! 👋 Need help?",
+    "proactiveBubbleTriggerType": "afterDelay",
+    "proactiveBubbleDelayTime": 10
+  },
+  "clientId": "a77753bd-2319-48dd-a782-9d6ba282b204",
+  "selector": "#webchat"
+});
+</script>
+
+
+  
   // --- Hamburger drawer ---
   const hamburger = document.getElementById('hamburger');
   const drawer = document.getElementById('mobile-drawer');
