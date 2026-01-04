@@ -194,7 +194,19 @@ document.addEventListener('DOMContentLoaded', function() {
   "selector": "#webchat"
 });
 
+// When webchat is ready
+    window.botpress.on('webchat:initialized', () => {
+      console.log('✅ Webchat initialized');
 
+      // STEP 1: Upd2ate User with data
+      window.botpress.updateUser({
+        data: {
+          email: "test.user@example.com",
+          page_name: "Allegory",
+          category: "general",
+          timestamp: new Date().toISOString()
+        }
+      });
 
   
   // --- Hamburger drawer ---
