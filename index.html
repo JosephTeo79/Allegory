@@ -158,10 +158,9 @@ document.addEventListener('DOMContentLoaded', function() {
 */
 
 <!-- Put this on your page BEFORE the script below -->
-<div id="webchat" style="width: 500px; height: 500px;"></div>
 
 <!-- In your <body> tag -->
-<script>
+
   window.botpress.on("webchat:ready", () => {
     window.botpress.open();
   });
@@ -194,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
   "clientId": "a77753bd-2319-48dd-a782-9d6ba282b204",
   "selector": "#webchat"
 });
-</script>
+
 
 
   
