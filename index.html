@@ -278,24 +278,47 @@ document.addEventListener('click', function(event) {
 
 <!-- In your <body> tag -->
 
-  window.botpress.on("webchat:ready", () => {
+
+ window.botpress.on("webchat:ready", () => {
     window.botpress.open();
   });
+
+  // --- 逻辑 A: 获取 URL 参数 (来自 Botpress 的传值) ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const firstName = urlParams.get('firstname') || '';
+    const lastName = urlParams.get('lastname') || '';
+    const email = urlParams.get('email') || '';
+    const phone = urlParams.get('phone') || '';
+
+    
+
+    // --- 逻辑 B: Botpress 初始化 ---
+    
+    // 注意：如果你希望机器人记住用户，不要每次都 generate randomUserId
+    // 建议：只有当 URL 里没有 firstname 时才清空，或者干脆保留 session
+    if (!firstName) {
+        localStorage.clear(); 
+    }
+// 如果不想全删，可以用循环只删 bp 开头的项：
+// Object.keys(localStorage).forEach(key => { if(key.includes('bp')) localStorage.removeItem(key); });
+const randomUserId = firstName ? ('user_' + firstName.toLowerCase()) : ('guest_' + Math.random().toString(36).substring(2, 7));
+
   window.botpress.init({
   "botId": "a513dc7b-a61b-4a0e-b0c2-79292f0f64b8",
+  "userId": randomUserId,
   "configuration": {
     "version": "v2",
     "botName": "Integrated Retail Support Agent",
-    "botAvatar": "https://files.bpcontent.cloud/2025/12/22/00/20251222002253-Y8F2R9P2.png",
+    "botAvatar": "https://files.bpcontent.cloud/2026/01/04/10/20260104100855-WL4YT8WH.png",
     "botDescription": "",
     "website": {},
     "email": {},
     "phone": {},
     "termsOfService": {},
     "privacyPolicy": {},
-    "color": "#1E90FF",
+    "color": "#044181",
     "variant": "solid",
-    "headerVariant": "solid",
+    "headerVariant": "glass",
     "themeMode": "light",
     "fontFamily": "inter",
     "radius": 2,
@@ -311,21 +334,23 @@ document.addEventListener('click', function(event) {
   "selector": "#webchat"
 });
 
-// When webchat is ready
+  // When webchat is ready
     window.botpress.on('webchat:initialized', () => {
       console.log('✅ Webchat initialized');
 
       // STEP 1: Upd2ate User with data
       window.botpress.updateUser({
         data: {
-          email: "test.user@example.com",
+         email: urlParams.get('email') || "",
+          phone:urlParams.get('phone') || "",
+          firstname:urlParams.get('firstname') || "",
+          lastname:urlParams.get('lastname') || "",
           page_name: "Allegory",
           category: "general",
           timestamp: new Date().toISOString()
         }
       });
     });
-
   
   // --- Hamburger drawer ---
   const hamburger = document.getElementById('hamburger');
